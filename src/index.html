@@ -38,7 +38,73 @@
         <p id="content">Please Sign In to see your tasks!</p>
     </div>
 
+    <header class = "container header">
+        <div class="board-header">
+            Awesome Kanban Board
+        </div>
+        <div class="user-header">
+            <img src="files/user-avatar.svg" alt="user-avatar">
+        </div>
+    </header>
 
+    <div class="container main">
+        <!--task for backlog-->
+        <div class="task backlog">
+            <p class="font-task">Backlog</p>
+            <div class="add-task-backlog">
+
+            </div>
+            <button class="button-task_add" onclick="myFunction()">
+                <span class="plus"></span>
+                <span>Add card</span>
+            </button>
+        </div>
+        <!--task for ready-->
+        <div class="task ready">
+            <p class="font-task">Ready</p>
+            <div class="add-task-ready">
+
+            </div>
+            <button class="button-task_add">
+                <span class="plus"></span>
+                <span>Add card</span>
+            </button>
+        </div>
+        <!--task for inprogress-->
+        <div class="task inprogress">
+            <p class="font-task">In Progress</p>
+            <div class="add-task-inprogress">
+
+            </div>
+            <button class="button-task_add">
+                <span class="plus"></span>
+                <span>Add card</span>
+            </button>
+        </div>
+        <!--task for finished-->
+        <div class="task finished">
+            <p class="font-task">Finished</p>  
+            <div class="add-task-finished">
+
+            </div>
+            <button class="button-task_add">
+                <span class="plus"></span>
+                <span>Add card</span>
+            </button> 
+        </div>
+    </div>
+
+    <footer class = "container footer">
+        <div class="task-footer">
+            <p>Active tasks:</p>
+            <p>Finished tasks:</p>
+        </div>
+        <div class="presentation">
+            <p>Kanban board by </p>
+        </div>
+    </footer>
 </body>
+
+
 
 </html>
