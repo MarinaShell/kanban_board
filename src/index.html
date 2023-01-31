@@ -9,7 +9,7 @@
 </head>
 
 <body class="bg-light">
-
+ 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">SimpleTODO</a>
@@ -37,7 +37,7 @@
     <div class="container">
         <p id="content">Please Sign In to see your tasks!</p>
     </div>
-
+ 
     <header class = "container header">
         <div class="board-header">
             Awesome Kanban Board
@@ -46,54 +46,72 @@
             <img src="files/user-avatar.svg" alt="user-avatar">
         </div>
     </header>
-
+ 
     <div class="container main">
         <!--task for backlog-->
         <div class="task backlog">
             <p class="font-task">Backlog</p>
+            <!--список задач-->
             <div class="add-task-backlog">
-
+                <ul class = "ul-task-backlog"> </ul>   
             </div>
-            <button class="button-task_add" onclick="myFunction()">
-                <span class="plus"></span>
-                <span>Add card</span>
-            </button>
+            <!--кнопка добавления задач-->
+            <div class="dropdown">
+              <button onclick="myFunction_backlog()" class="dropbtn plus">    
+                Add card
+              </button>             
+            </div>  
         </div>
         <!--task for ready-->
         <div class="task ready">
             <p class="font-task">Ready</p>
+             <!--список задач-->
             <div class="add-task-ready">
-
+                <ul class = "ul-task-ready"> </ul>   
             </div>
-            <button class="button-task_add">
-                <span class="plus"></span>
-                <span>Add card</span>
-            </button>
+            <!--кнопка добавления задач-->
+            <div class="dropdown">
+              <button onclick="myFunction_ready()" class="dropbtn plus">                      Add card
+              </button>             
+              <div id="myDropdown-ready" class="dropdown-content">
+                <ul class = "ul-ready"> </ul>   
+              </div>
+            </div>  
         </div>
         <!--task for inprogress-->
         <div class="task inprogress">
             <p class="font-task">In Progress</p>
+            <!--список задач-->
             <div class="add-task-inprogress">
-
+                <ul class = "ul-task-inprogress"> </ul>  
             </div>
-            <button class="button-task_add">
-                <span class="plus"></span>
-                <span>Add card</span>
-            </button>
+            <!--кнопка добавления задач-->
+            <div class="dropdown">
+              <button onclick="myFunction_inprogress()" class="dropbtn plus">                      Add card
+              </button>             
+              <div id="myDropdown-inprogress" class="dropdown-content">
+                <ul class = "ul-progress"> </ul>   
+              </div>
+            </div>  
         </div>
         <!--task for finished-->
         <div class="task finished">
             <p class="font-task">Finished</p>  
+             <!--список задач-->
             <div class="add-task-finished">
-
+                <ul class = "ul-task-finished"> </ul>  
             </div>
-            <button class="button-task_add">
-                <span class="plus"></span>
-                <span>Add card</span>
-            </button> 
+            <!--кнопка добавления задач-->
+            <div class="dropdown">
+              <button onclick="myFunction_finished()" class="dropbtn plus">                      Add card
+              </button>             
+              <div id="myDropdown-finished" class="dropdown-content">
+                <ul class = "ul-finished"> </ul>   
+              </div>
+            </div>  
         </div>
     </div>
-
+ 
     <footer class = "container footer">
         <div class="task-footer">
             <p>Active tasks:</p>
@@ -104,7 +122,4 @@
         </div>
     </footer>
 </body>
-
-
-
 </html>

@@ -2,27 +2,30 @@
   --color-gray:#EBECF0;
   --color-gray_dark:#5E6C84;
 }
-
+ 
 #app-login-btn {
   width: 160px;
 }
-
+ 
 .container{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap:wrap;
   background-color: #0079BF;
-  padding-bottom: 32px;   
+  padding-bottom: 32px; 
 }
-
+ 
 .task{
   background-color: var(--color-gray);
   width: 282px;
   border-radius: 8px; 
-  max-height: 539px;
 }
-
+ 
+.backlog{
+    height: auto;
+}
+ 
 .footer{
   display: flex;
   flex-direction: row;
@@ -32,7 +35,7 @@
   padding-top: 17px;  
   height: 55px;
 }
-
+ 
 .header{
   display: flex;
   flex-direction: row;
@@ -42,6 +45,7 @@
   padding-top: 17px;  
   height: 55px; 
 }
+ 
 .board-header{
   font-family: 'Roboto';
   font-style: normal;
@@ -50,9 +54,18 @@
   line-height: 33px;
   color: #FFFFFF;
 }
-
+ 
 .main{
   padding-top: 20px;
+}
+ 
+.li{
+  list-style: none;
+  background-color: white;
+  margin-top: 10px;
+  margin-left: -10px;
+  margin-right: 10px;
+  color: black;
 }
 
 .task-footer{
@@ -60,7 +73,7 @@
   flex-direction: row;
   justify-content: space-around; 
 }
-
+ 
 .font-task{
   padding-left: 12px;
   color: black;
@@ -69,8 +82,9 @@
   font-weight: 400;
   font-size: 18px;   
 }
-
-.button-task_add{
+ 
+/* Кнопка выпадающего списка */
+.dropbtn{
   border: none;
   color:var(--color-gray_dark);
   display: flex;
@@ -79,20 +93,85 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;   
+  font-size: 18px;
+  height:30px;
+  cursor: pointer;
+  display:inline-block;
+  border-radius: 8px;
 }
 
+/* Кнопка выпадающего списка */
+.btn-list{
+  border: none;
+  color:black;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  height:30px;
+  cursor: pointer;
+  display:inline-block;
+  border-radius: 8px;
+  width:100%;  
+  background-color: white;  
+}
+ 
 .plus {
   display:inline-block;
-  width:28px;
+  width:100px;
   height:28px;
   
   background:
     linear-gradient(var(--color-gray_dark),var(--color-gray_dark)),
     linear-gradient(var(--color-gray_dark),var(--color-gray_dark)),
     var(--color-gray);
-  background-position:center;
-  background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-position:left;
+  background-size: 15px 2px,2px 15px; 
   background-repeat:no-repeat;
-  margin-top: 10px; 
+  margin-top: 10px;  
+  padding-left:10px;
+}
+ 
+/* Кнопка выпадающего меню при наведении и фокусировке */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: white;
+}
+ 
+.btn-list:hover, .btn-list:focus{
+  background-color: var(--color-gray_dark);
+  color:white;
+}
+
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+ 
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+ 
+/* Ссылки внутри выпадающего списка */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+ 
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+ 
+/* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+.show {
+  display:block;
 }
