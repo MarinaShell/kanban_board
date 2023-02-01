@@ -26,8 +26,6 @@ loginForm.addEventListener("submit", function (e) {
   document.querySelector("#content").innerHTML = fieldHTMLContent;
 });
 
-/* Когда пользователь нажимает на кнопку,
-переключение между скрытием и отображением раскрывающегося содержимого */
 let arr_backlog=["4", "8", "10"];
 let arr_ready=["1","2","3","4"];
 let arr_inprogress=["5", "6", "7"];
@@ -36,35 +34,56 @@ const ul_task_backlog = document.querySelector(".ul-task-backlog");
 const ul_task_ready = document.querySelector(".ul-task-ready");
 const ul_task_inprogress = document.querySelector(".ul-task-inprogress");
 const ul_task_finished = document.querySelector(".ul-task-finished");
-
+const btn_backlog = document.querySelector("#btn-backlog");
+const btn_ready = document.querySelector("#btn-ready");
+const btn_inprogress = document.querySelector("#btn-inprogress");
+const btn_finished = document.querySelector("#btn-finished");
+const btn_task_submit = document.querySelector(".btn-task_submit");
+const p_task_active = document.querySelector(".task-footer__active");
+const p_task_finished = document.querySelector(".task-footer__finished");
+const p_backlog_add_task = document.querySelector(".input_add_task");
 /*при старте страницы заполняем карточки из localstorage*/ 
 window.onload = function()
 {
   onInit();
 };
-
+ 
 /*функция заполнения карточки из localstorage*/ 
 const onInit = () => {
   clearList(ul_task_backlog);
   fullList(ul_task_backlog, arr_backlog);
-
+ 
   clearList(ul_task_ready);
   fullList(ul_task_ready, arr_ready);
-
+ 
   clearList(ul_task_inprogress);
   fullList(ul_task_inprogress, arr_inprogress);
   
   clearList(ul_task_finished);
   fullList(ul_task_finished, arr_finished);
-};
+  
+  setButtonStyle(btn_ready, arr_backlog);
+  setButtonStyle(btn_inprogress, arr_ready);
+  setButtonStyle(btn_finished, arr_inprogress);
 
+  fullActiveFinishedTasks();
+};
+ 
+/*устанавливаем для конпки значения disable*/
+function setButtonStyle(btn, arr){
+  if (arr.length == 0)
+    btn.className = 'dropbtn_disable';
+  else
+    btn.className = 'dropbtn';
+}
+ 
 /*очищаем список*/
 function clearList(my_ul){
   while (my_ul.firstChild) {
     my_ul.removeChild(my_ul.firstChild);
   }
 };
-
+ 
 /*заполняем список*/
 function fullList(my_ul, arr ){
   for (let i = 0; i< arr.length; i++)
@@ -75,6 +94,11 @@ function fullList(my_ul, arr ){
       my_ul.appendChild(newLi);      
   }                 
 };
+ 
+function fullActiveFinishedTasks(){
+  p_task_active.textContent = "Active tasks: " + arr_backlog.length;
+  p_task_finished.textContent = "Finished tasks: " + arr_finished.length;
+}
 
 /*заполняем список*/
 function fullList_ul(my_ul, arr, my_ul_list, arr_list ){
@@ -97,10 +121,7 @@ function fullList_ul(my_ul, arr, my_ul_list, arr_list ){
       my_ul.appendChild(newLi);      
   }                 
 };
-
-window.addNewCard = function(my_ul, arr_list){
-}
-
+ 
 function saveCard(user) {
   try {
     addToStorage(user, user.storageKey);
@@ -109,13 +130,23 @@ function saveCard(user) {
     throw new Error(e);
   }
 };
-
+ 
 /*нажимаем на кнопку add card у Backlog*/
-window.myFunction_backlog = function() {   
-    clearList(ul_task_backlog);
-    arr_backlog.push("new");
-    fullList(ul_task_backlog, arr_backlog);  
+window.myFunction_backlog = function(){   
+    btn_backlog.className =  'hide';
+    btn_task_submit.className = 'show btn-task_submit';
+    p_backlog_add_task.className = 'show input_add_task font-task';
 };
+
+window.submit_task = function(){
+  clearList(ul_task_backlog);
+  arr_backlog.push(p_backlog_add_task.innerHTML);
+  fullList(ul_task_backlog, arr_backlog);  
+  onInit();
+  btn_backlog.className = 'show dropbtn';
+  btn_task_submit.className = 'hide';
+  p_backlog_add_task.className = 'hide';
+}
  
 /*нажимаем на кнопку add card у Ready*/
 window.myFunction_ready = function() {    
@@ -126,13 +157,13 @@ window.myFunction_ready = function() {
 };
  
 /*нажимаем на кнопку add card у In Progress*/
-window.myFunction_inprogress = function() {    
+window.myFunction_inprogress = function (){    
     document.getElementById("myDropdown-inprogress").classList.toggle("show");
     let ul_progress = document.querySelector(".ul-progress");
     clearList(ul_progress);
     fullList_ul(ul_progress, arr_ready, ul_task_inprogress, arr_inprogress);           
 };
-
+ 
 /*нажимаем на кнопку add card у Finished*/
 window.myFunction_finished = function() { 
     document.getElementById("myDropdown-finished").classList.toggle("show");
@@ -155,4 +186,3 @@ window.onclick = function(event) {
     }
   }
 };
- 

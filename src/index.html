@@ -57,9 +57,14 @@
             </div>
             <!--кнопка добавления задач-->
             <div class="dropdown">
-              <button onclick="myFunction_backlog()" class="dropbtn plus">    
+              <button id = "btn-backlog" onclick="myFunction_backlog()" class="dropbtn"> 
+                <img src="files/add-card.svg" alt="add-card">   
                 Add card
-              </button>             
+              </button>      
+              <input type = "text" class="input_add_task font-task hide">
+              <button onclick="submit_task()" class = "btn-task_submit hide">
+                submit
+              </button>                  
             </div>  
         </div>
         <!--task for ready-->
@@ -71,7 +76,9 @@
             </div>
             <!--кнопка добавления задач-->
             <div class="dropdown">
-              <button onclick="myFunction_ready()" class="dropbtn plus">                      Add card
+              <button id = "btn-ready" onclick="myFunction_ready()" class="dropbtn">
+                <img src="files/add-card.svg" alt="add-card"> 
+                Add card
               </button>             
               <div id="myDropdown-ready" class="dropdown-content">
                 <ul class = "ul-ready"> </ul>   
@@ -87,7 +94,9 @@
             </div>
             <!--кнопка добавления задач-->
             <div class="dropdown">
-              <button onclick="myFunction_inprogress()" class="dropbtn plus">                      Add card
+              <button id = "btn-inprogress" onclick="myFunction_inprogress()" class="dropbtn">
+                <img src="files/add-card.svg" alt="add-card"> 
+                Add card
               </button>             
               <div id="myDropdown-inprogress" class="dropdown-content">
                 <ul class = "ul-progress"> </ul>   
@@ -103,7 +112,9 @@
             </div>
             <!--кнопка добавления задач-->
             <div class="dropdown">
-              <button onclick="myFunction_finished()" class="dropbtn plus">                      Add card
+              <button id = "btn-finished" onclick="myFunction_finished()" class="dropbtn">
+                <img src="files/add-card.svg" alt="add-card"> 
+                Add card
               </button>             
               <div id="myDropdown-finished" class="dropdown-content">
                 <ul class = "ul-finished"> </ul>   
@@ -114,11 +125,11 @@
  
     <footer class = "container footer">
         <div class="task-footer">
-            <p>Active tasks:</p>
-            <p>Finished tasks:</p>
+            <p class="task-footer__active">Active tasks:</p>
+            <p class="task-footer__finished">Finished tasks:</p>
         </div>
         <div class="presentation">
-            <p>Kanban board by </p>
+            <p>Kanban board by MS, 2023</p>
         </div>
     </footer>
 </body>

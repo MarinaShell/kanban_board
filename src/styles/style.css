@@ -1,6 +1,7 @@
 :root {
   --color-gray:#EBECF0;
   --color-gray_dark:#5E6C84;
+  --color-gray_add:#aab3c4;
 }
  
 #app-login-btn {
@@ -8,24 +9,29 @@
 }
  
 .container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap:wrap;
+  flex-wrap:wrap;  
   background-color: #0079BF;
   padding-bottom: 32px; 
+  text-align:center;
 }
  
 .task{
+  display: inline-block;  
+  vertical-align: top;
   background-color: var(--color-gray);
   width: 282px;
-  border-radius: 8px; 
+  border-radius: 10px; 
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  text-align:left;
+  max-height: 539px; 
 }
  
 .backlog{
-    height: auto;
+  overflow: auto;
 }
- 
+
 .footer{
   display: flex;
   flex-direction: row;
@@ -62,10 +68,41 @@
 .li{
   list-style: none;
   background-color: white;
-  margin-top: 10px;
-  margin-left: -10px;
+  margin-top: 15px;
+  margin-left: -20px;
   margin-right: 10px;
   color: black;
+  height: 40px;
+}
+ 
+.input_add_task{
+  background-color: white;
+  height: 40px;
+  margin-left: 10px;
+  text-align:left;
+  border: none;
+}
+
+.btn-task_submit{
+  background: #0079BF;
+  border-radius: 5px;
+  height: 29px;
+  width: 102px;
+  color: white;
+  text-align: center;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  border: none;
+}
+
+.btn-task_submit:hover, .btn-task_submit:focus {
+  background-color: rgb(104, 183, 214); 
 }
 
 .task-footer{
@@ -75,16 +112,16 @@
 }
  
 .font-task{
-  padding-left: 12px;
+  margin-left: 12px;
   color: black;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;   
+  font-size: 18px;     
 }
  
 /* Кнопка выпадающего списка */
-.dropbtn{
+.dropbtn, .dropbtn_disable{
   border: none;
   color:var(--color-gray_dark);
   display: flex;
@@ -94,10 +131,18 @@
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  height:30px;
-  cursor: pointer;
+  height:30px;  
   display:inline-block;
-  border-radius: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+
+.dropbtn_disable{
+  cursor:none;
+  background-color: var(--color-gray); 
+  color: var(--color-gray_add);
 }
 
 /* Кнопка выпадающего списка */
@@ -116,32 +161,24 @@
   background-color: white;  
 }
  
-.plus {
-  display:inline-block;
-  width:100px;
-  height:28px;
-  
-  background:
-    linear-gradient(var(--color-gray_dark),var(--color-gray_dark)),
-    linear-gradient(var(--color-gray_dark),var(--color-gray_dark)),
-    var(--color-gray);
-  background-position:left;
-  background-size: 15px 2px,2px 15px; 
-  background-repeat:no-repeat;
-  margin-top: 10px;  
-  padding-left:10px;
+/* Кнопка выпадающего меню при наведении и фокусировке */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: white; 
 }
  
 /* Кнопка выпадающего меню при наведении и фокусировке */
-.dropbtn:hover, .dropbtn:focus {
-  background-color: white;
+.dropbtn_disable:hover, .dropbtn_disable:focus {
+  background-color:  var(--color-gray);
 }
  
 .btn-list:hover, .btn-list:focus{
   background-color: var(--color-gray_dark);
   color:white;
 }
-
+ 
+.task-footer__active{
+  margin-right: 20px;
+}
 /* Контейнер <div> - необходим для размещения выпадающего содержимого */
 .dropdown {
   position: relative;
@@ -171,7 +208,12 @@
   background-color: #ddd;
 }
  
-/* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+/* Показать выпадающее меню */
 .show {
   display:block;
 }
+
+.hide{
+  display: none;
+}
+
