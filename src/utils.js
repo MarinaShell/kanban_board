@@ -10,6 +10,8 @@ export const addToStorage = function (obj, key) {
 
 export const generateTestUser = function (User) {
   localStorage.clear();
-  const testUser = new User("test", "qwerty123");
+  let testUser = new User("test", "qwerty123");
+  User.save(testUser);
+  testUser = new User("admin", "admin123");
   User.save(testUser);
 };

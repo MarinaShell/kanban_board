@@ -9,14 +9,22 @@ export class User extends BaseModel {
     this.storageKey = "users";
   }
   get hasAccess() {
-    let users = getFromStorage(this.storageKey);
-    if (users.length == 0) return false;
+    let users = getFromStorage(this.storageKey);    
+    if (users.length == 0) 
+      return false;
     for (let user of users) {
       if (user.login == this.login && user.password == this.password)
         return true;
     }
     return false;
   }
+
+  get hasAccessAdmin() {
+       if ('admin' == this.login && 'admin123' == this.password)
+        return true;
+    return false;
+  }
+
   static save(user) {
     try {
       addToStorage(user, user.storageKey);
