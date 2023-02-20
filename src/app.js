@@ -18,6 +18,16 @@ let arr_backlog=[];
 let arr_ready=[];
 let arr_inprogress=[];
 let arr_finished=[];
+class Users{
+  constructor(id, name, tasks){
+    this.id = id;
+    this.name = name;
+    this.tasks = tasks;
+  }
+}
+const user = new Users('user', 'UserName', ['task1', 'task2'] );
+const admin = new Users('admin', 'nameOfAdmin', 'to enter a tasks for developing');
+
 let content = document.querySelector("#content");
 let ul_task_backlog = document.querySelector(".ul-task-backlog");
 let ul_task_ready = document.querySelector(".ul-task-ready");
@@ -31,6 +41,9 @@ let btn_task_submit = document.querySelector(".btn-task_submit");
 let p_task_active = document.querySelector(".task-footer__active");
 let p_task_finished = document.querySelector(".task-footer__finished");
 let p_backlog_add_task = document.querySelector(".input_add_task");
+let p_content_account = document.querySelector("#content-account");
+let p_content_tasks = document.querySelector("#content-tasks");
+let p_kanban_board = document.querySelector("#kanban-board");
 let resAdmin = false;
 
 loginForm.addEventListener("submit", function (e) {
@@ -48,13 +61,10 @@ loginForm.addEventListener("submit", function (e) {
   else  
   {
     document.querySelector("#content").innerHTML = noAccessTemplate;  
-  }  
-
-  
-
+  } 
 });
 
-/*при старте страницы заполняем карточки из localstorage*/ 
+/*при старте страницы заполняем все значения*/ 
 function onload()
 {
   content = document.querySelector("#content");
@@ -70,6 +80,13 @@ function onload()
   p_task_active = document.querySelector(".task-footer__active");
   p_task_finished = document.querySelector(".task-footer__finished");
   p_backlog_add_task = document.querySelector(".input_add_task");
+  p_content_account = document.querySelector("#content-account");
+  p_content_tasks = document.querySelector("#content-tasks");
+  p_content_account.textContent = resAdmin?admin.name:user.name;
+  p_content_tasks.textContent = resAdmin?admin.tasks:user.tasks;
+  p_kanban_board = document.querySelector("#kanban-board");
+  p_kanban_board.textContent = 'Kanban Board for ';
+  p_kanban_board.textContent += resAdmin?admin.name:user.name;
   onInit();
 };
  
@@ -97,7 +114,7 @@ const onInit = () => {
  
 /*устанавливаем для конпки значения disable*/
 function setButtonStyle(btn, arr){
-  if (arr.length == 0)
+  if (arr.length == 0 || resAdmin)
     btn.className = 'dropbtn_disable';
   else
     btn.className = 'dropbtn';
@@ -111,7 +128,6 @@ function setButtonStyleBacklog(btn){
     btn.className = 'dropbtn';
 }
  
-
 /*очищаем список*/
 function clearList(my_ul){
   while (my_ul.firstChild) {
@@ -157,22 +173,13 @@ function fullList_ul(my_ul, arr, my_ul_list, arr_list ){
   }                 
 };
  
-function saveCard(user) {
-  try {
-    addToStorage(user, user.storageKey);
-    return true;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
- 
 /*нажимаем на кнопку add card у Backlog*/
 window.myFunction_backlog = function(){   
-    if (!resAdmin)
-      return;
-    btn_backlog.className =  'hide';
-    btn_task_submit.className = 'show btn-task_submit';
-    p_backlog_add_task.className = 'show input_add_task font-task';
+  if (!resAdmin)
+    return;
+  btn_backlog.className =  'hide';
+  btn_task_submit.className = 'show btn-task_submit';
+  p_backlog_add_task.className = 'show input_add_task font-task';
 };
 
 /*нажимаем на кнопку submit card у Backlog*/
@@ -188,29 +195,36 @@ window.submit_task = function(){
   p_backlog_add_task.className = 'hide';
   p_backlog_add_task.value = "";
 }
+
 /*нажимаем на кнопку add card у Ready*/
 window.myFunction_ready = function() {    
-    document.getElementById("myDropdown-ready").classList.toggle("show");
-    let ul_ready = document.querySelector(".ul-ready");
-    console.log(ul_ready);
-    clearList(ul_ready);
-    fullList_ul(ul_ready, arr_backlog, ul_task_ready, arr_ready);  
+  if (resAdmin)
+    return;
+  document.getElementById("myDropdown-ready").classList.toggle("show");
+  let ul_ready = document.querySelector(".ul-ready");
+  console.log(ul_ready);
+  clearList(ul_ready);
+  fullList_ul(ul_ready, arr_backlog, ul_task_ready, arr_ready);      
 };
  
 /*нажимаем на кнопку add card у In Progress*/
 window.myFunction_inprogress = function (){    
-    document.getElementById("myDropdown-inprogress").classList.toggle("show");
-    let ul_progress = document.querySelector(".ul-progress");
-    clearList(ul_progress);
-    fullList_ul(ul_progress, arr_ready, ul_task_inprogress, arr_inprogress);           
+  if (resAdmin)
+    return;
+  document.getElementById("myDropdown-inprogress").classList.toggle("show");
+  let ul_progress = document.querySelector(".ul-progress");
+  clearList(ul_progress);
+  fullList_ul(ul_progress, arr_ready, ul_task_inprogress, arr_inprogress);           
 };
  
 /*нажимаем на кнопку add card у Finished*/
 window.myFunction_finished = function() { 
-    document.getElementById("myDropdown-finished").classList.toggle("show");
-    let ul_finished = document.querySelector(".ul-finished");
-    clearList(ul_finished);
-    fullList_ul(ul_finished, arr_inprogress, ul_task_finished,arr_finished);           
+  if (resAdmin)
+    return;
+  document.getElementById("myDropdown-finished").classList.toggle("show");
+  let ul_finished = document.querySelector(".ul-finished");
+  clearList(ul_finished);
+  fullList_ul(ul_finished, arr_inprogress, ul_task_finished,arr_finished);           
 };
 
  /*нажимаем на кнопку меню пользователя*/
@@ -218,12 +232,12 @@ window.myFunction_avatar = function(){
   let openDropdown = document.querySelector("#myDropdown-avatar");
   if (openDropdown.classList.contains('show')) {
      openDropdown.className = 'hide';
- //    document.querySelector("#img_down").src = "files/arrow-down.svg";
+     document.querySelector("#img_down").src = "../src/files/arrow-down.svg";
   } 
   else
   {
     openDropdown.className = 'show div-avatar';
-  //  document.querySelector("#img_down").src = "files/arrow-down.svg";
+    document.querySelector("#img_down").src = "../src/files/arrow-up.svg";
   }  
 }
 
@@ -234,6 +248,7 @@ window.myFunction_account = function(){
   document.querySelector("#my-account").className = 'container show';
   document.querySelector(".account-task").className = 'account-task show';
   document.querySelector("#myDropdown-avatar").className = 'hide';
+  document.querySelector("#img_down").src = "../src/files/arrow-down.svg";
 }
 
 /* нажимаем на кнопки в меню пользователя */
@@ -243,6 +258,7 @@ window.myFunction_tasks = function(){
   document.querySelector("#my-tasks").className = 'container show';
   document.querySelector(".account-task").className = 'account-task show';
   document.querySelector("#myDropdown-avatar").className = 'hide';
+  document.querySelector("#img_down").src = "../src/files/arrow-down.svg";
 }
 
 /* нажимаем на кнопки в меню пользователя */
